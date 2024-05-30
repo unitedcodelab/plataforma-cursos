@@ -6,19 +6,28 @@ from pathlib import Path
 env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR, '../.env'))
 
 SECRET_KEY = 'django-insecure-0a$7v8mmygu8$4bx+&dm%7#4#fw#xj3tl0%61637i9ill4xtxa'
 DEBUG = env('SECRET_KEY')
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    # Defauld Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Custom django apps
+
+
+    # Custom Apps
+    'apps.core',
+    'apps.courses',
+    'apps.students'
 ]
 
 MIDDLEWARE = [
@@ -36,7 +45,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ BASE_DIR / 'templates'],
+        'DIRS': [ BASE_DIR / 'templates/pages'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,8 +80,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'pt-BR'
+TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 USE_TZ = True
 
