@@ -1,9 +1,8 @@
 from django.db import models
-from .defaults import DefaultMixin
 
-class TitleMixin(DefaultMixin):
+class TitleMixin(models.Model):
     class Meta:
         abstract = True
 
-    title = models.CharField(max_length=255, unique=True)
+    title = models.CharField(max_length=255)
     description = models.TextField()

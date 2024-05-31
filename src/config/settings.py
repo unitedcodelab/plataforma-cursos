@@ -8,8 +8,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 environ.Env.read_env(os.path.join(BASE_DIR, '../.env'))
 
-SECRET_KEY = 'django-insecure-0a$7v8mmygu8$4bx+&dm%7#4#fw#xj3tl0%61637i9ill4xtxa'
-DEBUG = env('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env('DEBUG')
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
