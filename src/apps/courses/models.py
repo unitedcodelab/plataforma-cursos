@@ -28,6 +28,8 @@ class Course(TitleMixin, DefaultMixin):
     accept_guests = models.BooleanField(default=True)
 
 class Category(TitleMixin, DefaultMixin):
+    class Meta:
+        verbose_name_plural = "Categories"
     ...
 
 
@@ -60,7 +62,7 @@ class ExamViewer(DefaultMixin):
 class Question(DefaultMixin):
     text = models.TextField()
 
-class Options(DefaultMixin):
+class Option(DefaultMixin):
     text = models.TextField()
     correct = models.BooleanField()
 
