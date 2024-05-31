@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}
+        <title>Pagina principal</title>
+    {% endblock %}
+</head>
+<body>
+    {% comment %}
+        include layout/header
+    {% endcomment %}
+
+    <main>
+        {% block main %}
+        {% endblock %}
+    </main>
+
+    {% comment %}
+        include layout/footer
+    {% endcomment %}
+</body>
+</html>
