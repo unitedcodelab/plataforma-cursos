@@ -61,7 +61,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
-    'default': env.db()
+    'default': {
+        "ENGINE": "django.db.backends.postgresql",
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": "5432",
+        "NAME": env("DB_NAME"),
+    }
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -85,5 +92,8 @@ TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
+STATICFILES_DIRS = (
+    BASE_DIR / 'static',
+)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
