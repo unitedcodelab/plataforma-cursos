@@ -27,7 +27,6 @@ class Course(TitleMixin, DefaultMixin):
     valid = models.BooleanField(default=False)
     accept_guests = models.BooleanField(default=True)
 
-
 class Category(TitleMixin, DefaultMixin):
     ...
 
@@ -39,7 +38,6 @@ class Class(TitleMixin, DefaultMixin):
     duration = models.TimeField()
     video = models.FileField(upload_to='media/videos/')
     complementary = models.FileField(upload_to='media/complementary/')
-
 
 class ClassViewer(DefaultMixin):
     viewer_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
