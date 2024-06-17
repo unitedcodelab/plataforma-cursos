@@ -1,16 +1,18 @@
 
 import os
-import environ
+import dotenv
 from pathlib import Path
 
-env = environ.Env()
+from shared.utils.config import *
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(os.path.join(BASE_DIR, '../.env'))
+dotenv.read_dotenv(BASE_DIR / '../.env')
 
-SECRET_KEY = env('SECRET_KEY')
-DEBUG = env('DEBUG')
-ALLOWED_HOSTS = []
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = format_debug(os.environ.get('DEBUG'))
+ALLOWED_HOSTS = format_allowed_hosts(os.environ.get('ALLOWED_HOSTS'))
 
 INSTALLED_APPS = [
     # Defauld Django apps
@@ -63,11 +65,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.postgresql",
-        "USER": env("DB_USER"),
-        "PASSWORD": env("DB_PASSWORD"),
-        "HOST": env("DB_HOST"),
+        "USER": os.environ.get('DB_USER'),
+        "PASSWORD": os.environ.get('DB_PASSWORD'),
+        "HOST": os.environ.get('DB_HOST'),
         "PORT": "5432",
-        "NAME": env("DB_NAME"),
+        "NAME": os.environ.get('DB_NAME'),
     }
 }
 
@@ -93,6 +95,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 STATICFILES_DIRS = (
     BASE_DIR / 'static',
 )
