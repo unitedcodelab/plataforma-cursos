@@ -1,5 +1,6 @@
 asgiref==3.8.1
 Django==5.0.6
+django-debug-toolbar==4.4.2
 django-dotenv==1.4.2
 django-environ==0.11.2
 psycopg2-binary==2.9.9
