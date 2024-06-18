@@ -69,8 +69,6 @@ def import_students_2024_01():
         semester = line[21] 
         max_semester = line[25]
 
-        print(name, neighborhood)
-
         student = UnitStudent.objects.create(
             enroll_number=enroll_number,
             name=name,
@@ -105,6 +103,7 @@ def import_students_2024_01():
             student.phone_01 = phones[0]
 
         student.save()
+        print(f'{student.name} imported successfully.')
 
 
         # Only for debugging purposes
