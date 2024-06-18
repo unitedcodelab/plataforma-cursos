@@ -3,6 +3,8 @@ from django.db import models
 from shared.mixins.defaults import DefaultMixin
 from shared.mixins.person import PersonMixin
 
+from .extra_models.unit.students import UnitStudent
+
 
 class StudentManager(models.Manager):
     def get_queryset(self):
