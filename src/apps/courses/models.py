@@ -72,3 +72,17 @@ class QuestionViewer(DefaultMixin):
 
     viewer = GenericForeignKey('viewer_content_type', 'viewer_object_id')
     option = models.ForeignKey('Question', on_delete=models.CASCADE)
+
+
+class Certificate(DefaultMixin):
+    def upload_to(instance, filename):
+        return f'media/certificados/{instance.student.username}/{filename}'
+
+    student_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    student_object_id = models.PositiveIntegerField()
+
+    student = GenericForeignKey('student_content_type', 'student_object_id')
+    instructor = models.ForeignKey('Instructor', on_delete=models.CASCADE)
+    course = models.ForeignKey('Course', on_delete=models.CASCADE)
+    hours = models.PositiveIntegerField()
+    file = models.FileField(upload_to=upload_to)
