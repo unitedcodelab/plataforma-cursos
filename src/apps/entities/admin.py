@@ -9,7 +9,12 @@ class UnitStudentAdmin(admin.ModelAdmin):
     list_filter = ('course', 'campus', 'period', 'enrollment_year')
 
 
-admin.site.register(Student)
+class StudentAdmin(admin.ModelAdmin):
+    search_fields = ('name', )
+    list_display = ('name', 'enroll_number', 'verified')
+
+
+admin.site.register(UnitStudent, UnitStudentAdmin)
+admin.site.register(Student, StudentAdmin)
 admin.site.register(Teacher)
 admin.site.register(Guest)
-admin.site.register(UnitStudent, UnitStudentAdmin)
