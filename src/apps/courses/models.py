@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 
-from shared.mixins.defaults import DefaultMixin
+from shared.mixins.defaults import DefaultMixin, SlugMixin
 from shared.mixins.title import TitleMixin
 
 
@@ -18,7 +18,7 @@ class CourseManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(valid=True)
 
-class Course(TitleMixin, DefaultMixin):
+class Course(TitleMixin, DefaultMixin, SlugMixin):
     objects = CourseManager()
     even_not_valid = models.Manager()
 
@@ -27,19 +27,37 @@ class Course(TitleMixin, DefaultMixin):
     valid = models.BooleanField(default=False)
     accept_guests = models.BooleanField(default=True)
 
+
+    def __str__(self):
+        return self.title
+
 class Category(TitleMixin, DefaultMixin):
     class Meta:
         verbose_name_plural = "Categories"
     ...
 
 
-class Class(TitleMixin, DefaultMixin):
+class Class(TitleMixin, DefaultMixin, SlugMixin):
     class Meta:
         verbose_name_plural = "Classes"
+    
 
+    def classes_upload_to(instance, filename):
+        return f'media/classes/{instance.slug}/videos/{filename}'
+
+    def complementaries_upload_to(instance, filename):
+        return f'media/classes/{instance.slug}/complementaries/{filename}'
+
+
+    course = models.ForeignKey('Course', on_delete=models.CASCADE, related_name='classes')
     duration = models.TimeField()
-    video = models.FileField(upload_to='media/videos/')
-    complementary = models.FileField(upload_to='media/complementary/')
+    video = models.FileField(upload_to=classes_upload_to)
+    complementary = models.FileField(upload_to=complementaries_upload_to)
+
+
+    def __str__(self):
+        return self.title
+    
 
 class ClassViewer(DefaultMixin):
     viewer_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
@@ -47,6 +65,9 @@ class ClassViewer(DefaultMixin):
 
     viewer = GenericForeignKey('viewer_content_type', 'viewer_object_id')
     _class = models.ForeignKey('Class', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.viewer} - {self._class}"
 
 
 class Exam(DefaultMixin):
@@ -76,7 +97,7 @@ class QuestionViewer(DefaultMixin):
 
 class Certificate(DefaultMixin):
     def upload_to(instance, filename):
-        return f'media/certificados/{instance.student.username}/{filename}'
+        return f'media/certificados/{instance.student.name}/{filename}'
 
     student_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     student_object_id = models.PositiveIntegerField()
