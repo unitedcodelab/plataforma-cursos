@@ -7,11 +7,16 @@ from apps.entities.models import Student
 import shared.utils.classes as classes_utils
 
 
+@require_http_methods(["GET"])
+def index(request):
+    return render(request, 'pages/index.html')
+
+
 @login_required
 @require_http_methods(["GET"])
 def home(request):
     last_courses = classes_utils.get_last_courses(request.user.student, limit=3)
 
-    return render(request, 'home.html', {
+    return render(request, 'pages/home.html', {
         'last_courses': last_courses
     })
