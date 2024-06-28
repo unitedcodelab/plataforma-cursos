@@ -10,6 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 dotenv.read_dotenv(BASE_DIR / '../.env')
 
+PRODUCTION = format_production(os.environ.get('PRODUCTION'))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = format_debug(os.environ.get('DEBUG'))
 ALLOWED_HOSTS = format_allowed_hosts(os.environ.get('ALLOWED_HOSTS'))

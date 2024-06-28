@@ -8,16 +8,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{% static 'css/global.css' %}">
     {% block head %}
-        <title>Pagina principal</title>
+        <title>United Code Lab</title>
     {% endblock %}
 </head>
 <body class="min-h-screen">
     <header>
         {% block header %}
+            {% include 'layout/header.html'%}
         {% endblock %}
     </header>
 
     <main>
+        {% block aside %}
+            {% include 'layout/aside.html'%}
+        {% endblock %}
+
         {% block main %}
         {% endblock %}
     </main>
