@@ -2,6 +2,10 @@ def format_debug(debug: str) -> bool:
     return debug.lower() == 'true'
 
 
+def format_production(production: str) -> bool:
+    return production.lower() == 'true'
+
+
 def format_allowed_hosts(allowed_hosts: str) -> [str]:
     return allowed_hosts.split(',')[1:-1]
 

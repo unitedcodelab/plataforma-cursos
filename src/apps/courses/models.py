@@ -19,11 +19,15 @@ class CourseManager(models.Manager):
         return super().get_queryset().filter(valid=True)
 
 class Course(TitleMixin, DefaultMixin, SlugMixin):
+    def upload_to(instance, filename):
+        return f'media/courses/{instance.slug}/{filename}'
+
     objects = CourseManager()
     even_not_valid = models.Manager()
 
     instructor = models.ForeignKey('Instructor', on_delete=models.SET_NULL, null=True)
     categories = models.ManyToManyField('Category')
+    thumbnail = models.ImageField(upload_to=upload_to)
     valid = models.BooleanField(default=False)
     accept_guests = models.BooleanField(default=True)
 
