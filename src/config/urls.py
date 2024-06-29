@@ -3,8 +3,9 @@ from django.urls import path, include
 from .settings import DEBUG, PRODUCTION
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('apps.core.urls'))
+    path('admin', admin.site.urls),
+    path('', include('apps.core.urls')),
+    path('courses/', include('apps.courses.urls')),
 ]
 
 if DEBUG:
