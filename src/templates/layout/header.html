@@ -1,5 +1,5 @@
 <section class="flex justify-center relative items-center pt-8">
-    <form class="form relative w-[55%]">
+    <form class="form relative w-[55%] z-30" id="search-bar">
         <button class="absolute left-2 -translate-y-1/2 top-1/2 p-1">
             <svg
                 width="17"
@@ -40,8 +40,9 @@
                 ></path>
             </svg>
         </button>
+        
     </form>
-    <div class="absolute flex gap-8 right-[40px]">
+    <div class="absolute gap-8 right-[40px] hidden lg:flex">
         <button class="container">
             <svg
                 fill="black"
@@ -55,10 +56,86 @@
                 ></path>
             </svg>
         </button>
-        <button>
+        <button data-dropdown-toggle="dropdown">
             <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 24 24" stroke-width="0" fill="#000" stroke="currentColor" class="icon">
                 <path d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z"></path>
             </svg>
         </button>
+        <div class="max-w-lg mx-auto">
+            <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown">
+                <div class="px-4 py-3">
+                    <span class="block text-sm">{{ user.student.name }}</span>
+                    <span class="block text-sm font-medium text-gray-900 truncate">{{ user.student.email }}</span>
+                </div>
+                <ul class="py-1" aria-labelledby="dropdown">
+                    <li>
+                        <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Perfil</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Meus Cursos</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Meus certificados</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sair</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="block lg:hidden fixed right-[10px] top-[28px] z-20 w-[95%]">
+        <nav class="flex flex-wrap items-center justify-between p-3">
+            <div class="flex ml-auto">
+                <button id="hamburger">
+                    <img class="toggle block" src="https://img.icons8.com/fluent-systems-regular/2x/menu-squared-2.png" width="40" height="40" />
+                    <img class="toggle hidden" src="https://img.icons8.com/fluent-systems-regular/2x/close-window.png" width="40" height="40" />
+                </button>
+            </div>
+            <div
+                class="toggle hidden w-full text-right text-bold mt-5 md:mt-0 border-t-2 border-blue-900">
+                <a href="{% url 'home'%}"
+                    class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Início
+                </a>
+                <a href="#"
+                    class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Cursos
+                </a>
+                <a href="#"
+                    class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Perfil
+                </a>
+                <a href="#"
+                    class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Meus Cursos
+                </a>
+                <a href="#"
+                    class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Meus Certificados
+                </a>
+                <a href="#"
+                    class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Notificações
+                </a>
+                <a href="#"
+                    class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Suporte
+                </a>
+            </div>
+        </nav>
+        <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
+        <script>
+            let isOpen = false;
+            document.getElementById("hamburger").onclick = function toggleMenu() {
+                const seachBar = document.querySelector("#search-bar");
+                const mainContent = document.querySelector("main");
+                const body = document.querySelector("body");
+                const overlayer = document.querySelector("#overlayer");
+                
+                isOpen = !isOpen;
+                isOpen 
+                    ? (seachBar.classList.add("hidden"), mainContent.classList.add("hidden"))
+                    : (seachBar.classList.remove("hidden"), mainContent.classList.remove("hidden"));
+                
+                const navToggle = document.getElementsByClassName("toggle");
+                for (let i = 0; i < navToggle.length; i++) {
+                    navToggle.item(i).classList.toggle("hidden");
+                }
+            };
+        </script>
     </div>
 </section>
