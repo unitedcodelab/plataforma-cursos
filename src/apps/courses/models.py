@@ -1,3 +1,5 @@
+from math import ceil
+
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -31,6 +33,10 @@ class Course(TitleMixin, DefaultMixin, SlugMixin):
     valid = models.BooleanField(default=False)
     accept_guests = models.BooleanField(default=True)
 
+    def get_hours(self) -> float:
+        hours = sum([c.duration.hour for c in self.classes.all()])
+        minutes =  sum([c.duration.minute for c in self.classes.all()])
+        return ceil(hours + minutes / 60)
 
     def __str__(self):
         return self.title
@@ -38,7 +44,9 @@ class Course(TitleMixin, DefaultMixin, SlugMixin):
 class Category(TitleMixin, DefaultMixin):
     class Meta:
         verbose_name_plural = "Categories"
-    ...
+    
+    def __str__(self):
+        return self.title
 
 
 class Class(TitleMixin, DefaultMixin, SlugMixin):
@@ -68,7 +76,7 @@ class ClassViewer(DefaultMixin):
     viewer_object_id = models.PositiveIntegerField()
 
     viewer = GenericForeignKey('viewer_content_type', 'viewer_object_id')
-    _class = models.ForeignKey('Class', on_delete=models.CASCADE)
+    _class = models.ForeignKey('Class', on_delete=models.CASCADE, related_name='viewers')
 
     def __str__(self):
         return f"{self.viewer} - {self._class}"

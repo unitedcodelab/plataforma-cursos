@@ -29,4 +29,6 @@ def get_last_courses(student, limit):
             F('watched_classes') * 100.0 / F('total_classes'),
             output_field=IntegerField()
         )
+    ).filter(
+        percentage__lt=100
     ).order_by('-latest_class_created_at')[:limit]
