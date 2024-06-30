@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     # Custom Apps
     'apps.core',
     'apps.courses',
-    'apps.entities'
+    'apps.entities',
+    'apps.authentication',
 ]
 
 MIDDLEWARE = [
