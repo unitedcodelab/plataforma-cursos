@@ -5,7 +5,7 @@ from .settings import DEBUG, PRODUCTION
 urlpatterns = [
     path('admin', admin.site.urls),
     path('', include('apps.core.urls')),
-    path('courses/', include('apps.courses.urls')),
+    path('cursos/', include('apps.courses.urls')),
 ]
 
 if DEBUG:

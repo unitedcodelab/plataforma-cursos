@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <section class="flex flex-wrap gap-20 w-[71%] my-16">
+        {% for course in courses %}
+            <div class="w-60 lg-80 lg:h-96 flex flex-col gap-4">
+                <img src="{{ course.thumbnail.url }}" class="w-full h-40 rounded-md border border-sky-500" alt="Imagem do curso {{ course.title }}">
+                <h2 class="text-lg font-semibold">{{ course.title }}</h2>
+                <div class="flex flex-wrap gap-2">
+                    {% for category in course.categories_list %}
+                        <span class="badge warning">{{ category.title }}</span>
+                    {% endfor %}
+                </div>
+                <a href="{% url 'course_detail' course_slug=course.slug %}" class="button w-full">Ver mais</a>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}
