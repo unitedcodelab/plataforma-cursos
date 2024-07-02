@@ -1,1 +1,26 @@
-{{form}}
+{% extends 'base_auth.html' %} 
+{% load static %} 
+
+{% block 'head' %}
+  <link rel="stylesheet" href="{% static 'css/auth/signin.css' %}" />
+{% endblock %} 
+
+{% block 'title' %}Cadastro{% endblock %} 
+
+{% block 'body' %}
+  <div class="container_signin">
+    <div class="title_signin">
+      <h2>Entre na Plataforma</h2>
+    </div>
+    <div class="forms_signin">
+      <p>{{form}}</p>
+    </div>
+    <div class="esqueceu_senha_signin">
+      <a href="#">Esqueceu a senha?</a>
+    </div>
+    <button type="submit">Entrar</button>
+    <div class="cadastro_signin">
+      <a href="#">Ainda não tem cadastro?</a>
+    </div>
+  </div>
+{% endblock %}

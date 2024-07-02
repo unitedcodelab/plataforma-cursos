@@ -3,8 +3,8 @@ from django.contrib.auth import authenticate
 
 
 class SignInForm(forms.Form):
-  login = forms.CharField(label='Login', max_length=100)
-  password = forms.CharField(label='Senha', widget=forms.PasswordInput)
+  login = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Matrícula ou e-mail'}))
+  password = forms.CharField(label="", widget=forms.PasswordInput(attrs={'placeholder': 'Senha'}))
 
   def clean(self):
     cleaned_data = super().clean()

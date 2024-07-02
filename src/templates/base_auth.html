@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block 'title' %}{% endblock 'title' %}</title>
+  <link rel="stylesheet" href="{% static 'css/base_auth/base_auth.css' %}">
+  
+  {% block 'head' %}{% endblock 'head' %}
+</head>
+<body>
+  <div class="container_base">    
+    <div class="img_left"></div>
+    <div class="forms_rigth">
+        <div class="block_body">{% block 'body' %}{% endblock 'body' %}</div>
+        <div class="footer_base">
+            <img src="{% static 'css/base_auth/img/iconeucl.png' %}" alt="uclIcone">
+        </div>
+    </div>
+</div>
+</body>
+</html>
