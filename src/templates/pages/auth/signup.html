@@ -1,20 +1,53 @@
-{% extends 'base_auth.html' %} 
-{% load static %} 
+{% extends 'pages/auth/base_auth.html' %}
+{% load static %}
 
-{% block 'head' %}
-  <link rel="stylesheet" href="{% static 'css/auth/signup.css' %}" />
-{% endblock %} 
+{% block head %}
+    <title>Cadastro</title>
+    <script src="{% static '/js/auth/github_api.js' %}"></script>
+{% endblock %}
 
-{% block 'title' %}Cadastro{% endblock %} 
+{% block main %}
+    <form method="POST" class="z-50 w-[80%] lg:w-[60%] flex flex-col items-center">
+        {% csrf_token %}
 
-{% block 'body' %}
-  <div class="container_signup">
-    <div class="title_signup">
-      <h2>Faça agora o seu Cadastro!</h2>
-    </div>
-    <div class="forms_signup">
-      <p>{{form}}</p>
-    </div>
-    <button type="submit">Continuar</button>
-  </div>
+        {% if step == 1 %}
+            <h1 class="text-4xl font-bold text-center">Faça agora o seu Cadastro!</h1>
+        {%  elif step == 2 %}
+            <h1 class="text-4xl font-bold text-center">
+                Olá <strong class="text-blue-600">{{ student_name }}</strong> <br>
+                Crie seu cadastro Agora!
+            </h1>
+        {%  elif step == 3 %}
+            <h1 class="text-4xl font-bold text-center">Vincule seu GitHub</h1>
+        {% endif %}
+
+        <div class="flex flex-col gap-8 my-8 w-full">
+            {% for field in form %}
+                <div>
+                    <div>
+                        {{ field.label_tag }}
+                    </div>
+                    {% if step == 3 %}
+                        <div class="flex">
+                            {{ field }}
+                            <button id="searchButton" type="button" class="px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600">
+                                Buscar
+                            </button>
+                        </div>
+                        <ul id="resultsList" class="divide-y divide-gray-300 border"></ul>
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="my-4 text-rose-500 text-center">
+            {% if form.errors %}
+                {{ form.non_field_errors }}
+            {% endif %}
+        </div>
+
+        <button class="button w-full" type="submit">Proximo</button>
+    </form>
 {% endblock %}

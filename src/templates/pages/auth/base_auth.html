@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    {% block head %}
+        <title>United Code Lab</title>
+    {% endblock %}
+</head>
+<body class="w-screen h-screen flex justify-center items-center">
+    <img class="w-screen absolute lg:relative lg:w-[50%] h-full" src="{% static 'illustrations/auth/image_left.png' %}" alt="Ilustração">
+    <main class="bg-white w-[90%] lg:w-[50%] h-[80vh] lg:h-screen flex justify-center items-center rounded-md lg:rounded-none z-50">
+        {% block main %}
+        {% endblock %}
+    </main>
+</body>
+</html>

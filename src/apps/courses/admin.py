@@ -16,9 +16,9 @@ class ClassAdmin(admin.ModelAdmin):
 
 
 class ClassViewerAdmin(admin.ModelAdmin):
-    list_display = ('viewer_name', 'class_title', 'created_at')
+    list_display = ('viewer', 'class_title', 'created_at')
 
-    def viewer_name(self, obj):
+    def viewer(self, obj):
         return obj.viewer.name
 
     def class_title(self, obj):
