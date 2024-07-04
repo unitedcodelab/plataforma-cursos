@@ -6,6 +6,7 @@ urlpatterns = [
     path('admin', admin.site.urls),
     path('', include('apps.core.urls')),
     path('cursos/', include('apps.courses.urls')),
+    path('autenticacao/', include('apps.authentication.urls')),
 ]
 
 if DEBUG:

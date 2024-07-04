@@ -1,0 +1,31 @@
+{% extends 'pages/auth/base_auth.html' %}
+{% load static %} 
+
+{% block main %}
+    <div class="w-[60%]">
+        <h2 class="mb-12 text-4xl font-bold text-center">Entre na Plataforma</h2>
+        <form class="flex flex-col gap-8 mb-4" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <div>
+                    {{ field.label_tag }}
+                    {{ field }}
+
+                    {% if forloop.last %}
+                        <a href="#" class="text-gray-400 flex justify-end hover:underline">Esqueceu a senha?</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            {% if form.errors %}
+                <div class="my-4 text-rose-500 text-center">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+            <button class="button w-full" type="submit">Entrar</button>
+        </form>
+        <a href="{% url 'signup' %}" class="flex justify-center text-gray-400 hover:underline">
+            Ainda não tem uma conta? Cadastre-se
+        </a>
+    </div>
+{% endblock %}

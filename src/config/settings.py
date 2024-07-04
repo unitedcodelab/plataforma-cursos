@@ -1,4 +1,3 @@
-
 import os
 import dotenv
 from pathlib import Path
@@ -10,6 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 dotenv.read_dotenv(BASE_DIR / '../.env')
 
+APLICATION_URL = os.environ.get('APLICATION_URL')
 PRODUCTION = format_production(os.environ.get('PRODUCTION'))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = format_debug(os.environ.get('DEBUG'))
@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     # Custom Apps
     'apps.core',
     'apps.courses',
-    'apps.entities'
+    'apps.entities',
+    'apps.authentication',
 ]
 
 MIDDLEWARE = [
@@ -43,12 +44,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'apps.authentication.backends.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -103,6 +109,16 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD= os.environ.get('EMAIL_PASSWORD')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+
 if DEBUG:
     import mimetypes
 
@@ -132,8 +148,8 @@ if DEBUG:
         'debug_toolbar.panels.redirects.RedirectsPanel',
     ]
 
-    def show_toolbar(request):                                     # <-- NEW
-        return True           
+    def show_toolbar(request):
+        return True
 
     DEBUG_TOOLBAR_CONFIG = {
         'SHOW_TOOLBAR_CALLBACK' : show_toolbar,
