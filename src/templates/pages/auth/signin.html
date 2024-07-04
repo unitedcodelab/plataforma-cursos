@@ -1,26 +1,31 @@
-{% extends 'base_auth.html' %} 
+{% extends 'pages/auth/base_auth.html' %}
 {% load static %} 
 
-{% block 'head' %}
-  <link rel="stylesheet" href="{% static 'css/auth/signin.css' %}" />
-{% endblock %} 
+{% block main %}
+    <div class="w-[60%]">
+        <h2 class="mb-12 text-4xl font-bold text-center">Entre na Plataforma</h2>
+        <form class="flex flex-col gap-8 mb-4" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <div>
+                    {{ field.label_tag }}
+                    {{ field }}
 
-{% block 'title' %}Cadastro{% endblock %} 
+                    {% if forloop.last %}
+                        <a href="#" class="text-gray-400 flex justify-end hover:underline">Esqueceu a senha?</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
 
-{% block 'body' %}
-  <div class="container_signin">
-    <div class="title_signin">
-      <h2>Entre na Plataforma</h2>
+            {% if form.errors %}
+                <div class="my-4 text-rose-500 text-center">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+            <button class="button w-full" type="submit">Entrar</button>
+        </form>
+        <a href="{% url 'signup' %}" class="flex justify-center text-gray-400 hover:underline">
+            Ainda não tem uma conta? Cadastre-se
+        </a>
     </div>
-    <div class="forms_signin">
-      <p>{{form}}</p>
-    </div>
-    <div class="esqueceu_senha_signin">
-      <a href="#">Esqueceu a senha?</a>
-    </div>
-    <button type="submit">Entrar</button>
-    <div class="cadastro_signin">
-      <a href="#">Ainda não tem cadastro?</a>
-    </div>
-  </div>
 {% endblock %}
