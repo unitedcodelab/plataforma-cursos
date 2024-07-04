@@ -61,11 +61,13 @@ def signup(request):
 
         elif step == 2:
             form = forms.SignUpStep2Form(token=token)
-            student = utils.get_student_by_token(token)
-            context['student_name'] = student.name.split(' ')[0]
 
         elif step == 3:
             form = forms.SignUpStep3Form(token=token)
+
+    if step == 2:
+        student = utils.get_student_by_token(token)
+        context['student_name'] = student.name.split(' ')[0]
 
     return render(request, "pages/auth/signup.html", {
         **context,
