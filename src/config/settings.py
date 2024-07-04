@@ -1,4 +1,3 @@
-
 import os
 import dotenv
 from pathlib import Path
@@ -73,11 +72,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.postgresql",
-        "USER": 'admin2',
-        "PASSWORD": 'admin2',
-        "HOST": 'localhost',
+        "USER": os.environ.get('DB_USER'),
+        "PASSWORD": os.environ.get('DB_PASSWORD'),
+        "HOST": os.environ.get('DB_HOST'),
         "PORT": "5432",
-        "NAME": 'plataforma_cursos',
+        "NAME": os.environ.get('DB_NAME'),
     }
 }
 
