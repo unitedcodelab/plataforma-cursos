@@ -1,0 +1,13 @@
+{% extends 'pages/courses/classes/base_classes.html' %}
+
+{% block head %}
+    <title>{{ course.title }}</title>
+{% endblock %}
+
+{% block main %}
+    <section class="w-full">
+        <video controls class="w-full h-screen" autoplay>
+            <source src="{{ class.video.url }}" type="video/mp4" >
+        </video>
+    </section>
+{% endblock %}
