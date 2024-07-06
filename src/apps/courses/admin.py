@@ -3,7 +3,6 @@ from django.contrib import admin
 from .models import *
 
 
-
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at')
 
@@ -36,4 +35,5 @@ admin.site.register(Exam)
 admin.site.register(ExamViewer)
 admin.site.register(Question)
 admin.site.register(Option)
-admin.site.register(QuestionViewer)
+admin.site.register(OptionViewer)
+admin.site.register(Certificate)

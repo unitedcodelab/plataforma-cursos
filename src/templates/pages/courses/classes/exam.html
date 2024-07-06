@@ -1,0 +1,24 @@
+{% extends 'pages/courses/classes/base_classes.html' %}
+
+{% block head %}
+    <title>{{ course.title }}</title>
+{% endblock %}
+
+{% block main %}
+    <form method="POST">
+        {% csrf_token %}
+    
+        {% for field in form %}
+            {{ field.label_tag }}
+            {{ field }}
+        {% endfor %}
+    
+        {% if form.errors %}
+            <div class="my-4 text-rose-500 text-center">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+    
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

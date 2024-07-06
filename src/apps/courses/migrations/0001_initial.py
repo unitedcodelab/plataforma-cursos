@@ -178,14 +178,14 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='QuestionViewer',
+            name='OptionViewer',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('deleted', models.BooleanField(default=False)),
                 ('viewer_object_id', models.PositiveIntegerField()),
-                ('option', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='courses.question')),
+                ('option', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='courses.option')),
                 ('viewer_content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.contenttype')),
             ],
             options={

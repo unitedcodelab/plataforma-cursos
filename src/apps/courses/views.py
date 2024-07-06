@@ -7,6 +7,10 @@ from django.shortcuts import redirect
 from django.db.models import Q
 
 from .models import Course, ClassViewer, Class
+from .forms import ExamQuestionForm
+
+from shared.utils.classes import get_percentage_of_course
+from shared.utils.certificate import generate_certificate
 
 
 @login_required
@@ -89,4 +93,39 @@ def watch_class(request, course_slug, class_slug):
     return render(request, 'pages/courses/classes/watch.html', {
         'course': course,
         'class': current_class
+    })
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def take_exam(request, course_slug):
+    course = get_object_or_404(Course, slug=course_slug)
+    exam = course.exam
+
+    if get_percentage_of_course(request.user.student, course) < 80:
+        return redirect(f'/cursos/{course.slug}/aula/{course.classes.first().slug}')
+
+    if request.method == 'POST':
+        form = ExamQuestionForm(request.POST, course_slug=course.slug, student_name=request.user.student.name)
+        if form.is_valid():
+            percentage = form.save()
+
+            if percentage >= 70:
+                generate_certificate(
+                    student=request.user.student,
+                    instructor=course.instructor,
+                    course=course,
+                    hours=course.get_hours()
+                )
+                # ...
+
+            # ...
+
+    else:
+        form = ExamQuestionForm(course_slug=course.slug)
+
+    return render(request, 'pages/courses/classes/exam.html', {
+        'course': course,
+        'exam': exam,
+        'form': form
     })
