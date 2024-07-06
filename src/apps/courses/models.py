@@ -15,14 +15,20 @@ class Instructor(DefaultMixin):
     author = GenericForeignKey('author_content_type', 'author_object_id')
     description = models.TextField()
 
+    def __str__(self):
+        if hasattr(self.author, 'name'):
+            return self.author.name
+        return f"{self.id}"
+
 
 class CourseManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(valid=True)
 
+
 class Course(TitleMixin, DefaultMixin, SlugMixin):
-    def upload_to(instance, filename):
-        return f'media/courses/{instance.slug}/{filename}'
+    def upload_to(self, filename):
+        return f'media/courses/{self.slug}/{filename}'
 
     objects = CourseManager()
     even_not_valid = models.Manager()
@@ -35,11 +41,12 @@ class Course(TitleMixin, DefaultMixin, SlugMixin):
 
     def get_hours(self) -> float:
         hours = sum([c.duration.hour for c in self.classes.all()])
-        minutes =  sum([c.duration.minute for c in self.classes.all()])
+        minutes = sum([c.duration.minute for c in self.classes.all()])
         return ceil(hours + minutes / 60)
 
     def __str__(self):
         return self.title
+
 
 class Category(TitleMixin, DefaultMixin):
     class Meta:
@@ -52,20 +59,17 @@ class Category(TitleMixin, DefaultMixin):
 class Class(TitleMixin, DefaultMixin, SlugMixin):
     class Meta:
         verbose_name_plural = "Classes"
-    
 
-    def classes_upload_to(instance, filename):
-        return f'media/classes/{instance.slug}/videos/{filename}'
+    def classes_upload_to(self, filename):
+        return f'media/classes/{self.slug}/videos/{filename}'
 
-    def complementaries_upload_to(instance, filename):
-        return f'media/classes/{instance.slug}/complementaries/{filename}'
-
+    def complementaries_upload_to(self, filename):
+        return f'media/classes/{self.slug}/complementaries/{filename}'
 
     course = models.ForeignKey('Course', on_delete=models.CASCADE, related_name='classes')
     duration = models.TimeField()
     video = models.FileField(upload_to=classes_upload_to)
     complementary = models.FileField(upload_to=complementaries_upload_to)
-
 
     def __str__(self):
         return self.title
@@ -83,7 +87,9 @@ class ClassViewer(DefaultMixin):
 
 
 class Exam(DefaultMixin):
+    course = models.OneToOneField('Course', on_delete=models.CASCADE)
     duration = models.TimeField()
+
 
 class ExamViewer(DefaultMixin):
     viewer_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
@@ -92,24 +98,29 @@ class ExamViewer(DefaultMixin):
     viewer = GenericForeignKey('viewer_content_type', 'viewer_object_id')
     exam = models.ForeignKey('Exam', on_delete=models.CASCADE)
 
+
 class Question(DefaultMixin):
+    exam = models.ForeignKey('Exam', on_delete=models.CASCADE)
     text = models.TextField()
 
+
 class Option(DefaultMixin):
+    question = models.ForeignKey('Question', on_delete=models.CASCADE)
     text = models.TextField()
     correct = models.BooleanField()
 
-class QuestionViewer(DefaultMixin):
+
+class OptionViewer(DefaultMixin):
     viewer_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     viewer_object_id = models.PositiveIntegerField()
 
     viewer = GenericForeignKey('viewer_content_type', 'viewer_object_id')
-    option = models.ForeignKey('Question', on_delete=models.CASCADE)
+    option = models.ForeignKey('Option', on_delete=models.CASCADE)
 
 
 class Certificate(DefaultMixin):
-    def upload_to(instance, filename):
-        return f'media/certificados/{instance.student.name}/{filename}'
+    def upload_to(self, filename):
+        return f'media/certificates/{self.student.name}/{filename}'
 
     student_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     student_object_id = models.PositiveIntegerField()

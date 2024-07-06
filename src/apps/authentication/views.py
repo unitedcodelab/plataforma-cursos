@@ -90,7 +90,7 @@ def confirm_email(request, token):
     utils.get_github_data(token)
     utils.delete_token(token)
 
-    login(request, student.user)
+    login(request, student.user, backend='django.contrib.auth.backends.ModelBackend')
 
     return redirect('/home')
 
