@@ -1,5 +1,6 @@
 from xhtml2pdf import pisa
 from io import BytesIO
+from datetime import datetime
 
 from django.core.files import File
 
@@ -56,7 +57,7 @@ def create_html(certificate):
         </style>
     """
 
-    intro_text = f"Certificamos que o aluno {certificate.student.name} concluiu com sucesso o curso de {certificate.course.title}, ministrado por {certificate.instructor.author.name}, totalizando {certificate.hours} horas de estudo."
+    intro_text = f"Certificamos que o aluno {certificate.student.name} em { datetime.now().strftime('%d/%m/%Y') } concluiu com sucesso o curso de {certificate.course.title}, ministrado por {certificate.instructor.author.name}, totalizando {certificate.hours} horas de estudo."
 
     html_content = f"""
         <html>

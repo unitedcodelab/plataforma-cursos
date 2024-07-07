@@ -103,6 +103,9 @@ class Question(DefaultMixin):
     exam = models.ForeignKey('Exam', on_delete=models.CASCADE)
     text = models.TextField()
 
+    def __str__(self):
+        return self.text[:15]
+
 
 class Option(DefaultMixin):
     question = models.ForeignKey('Question', on_delete=models.CASCADE)

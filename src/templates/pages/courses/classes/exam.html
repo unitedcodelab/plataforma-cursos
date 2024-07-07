@@ -5,20 +5,32 @@
 {% endblock %}
 
 {% block main %}
-    <form method="POST">
-        {% csrf_token %}
-    
-        {% for field in form %}
-            {{ field.label_tag }}
-            {{ field }}
-        {% endfor %}
-    
-        {% if form.errors %}
-            <div class="my-4 text-rose-500 text-center">
-                {{ form.non_field_errors }}
-            </div>
-        {% endif %}
-    
-        <button type="submit">Submit</button>
-    </form>
+    <style>
+        #hamburger > img {
+            filter: invert(0) !important;
+        }
+    </style>
+    <div class="max-w-[800px] mt-16 lg:mt-0 mx-auto bg-white p-6">
+        <h2 class="text-4xl font-bold my-4 text-center">Avaliação Final<br>{{ course.title }}</h2>
+        <form method="POST">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="mb-8">
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+            {% endfor %}
+
+            {% if form.errors %}
+                <div class="my-4 text-red-500 text-center">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <button type="submit" class="flex ml-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Enviar
+            </button>
+        </form>
+    </div>
 {% endblock %}

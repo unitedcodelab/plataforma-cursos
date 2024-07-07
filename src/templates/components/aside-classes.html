@@ -120,7 +120,7 @@
     <script>
         let isOpen = false;
         document.querySelector("#hamburger").onclick = () => {
-            const mainContent = document.querySelector("video");
+            const mainContent = document.querySelector("video") ?? document.querySelector("main");
 
             isOpen = !isOpen;
             isOpen
