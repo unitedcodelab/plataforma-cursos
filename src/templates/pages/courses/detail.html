@@ -11,7 +11,7 @@
                     {% if already_subscribed %}
                         <a class="button bg-amber-500 hover:bg-amber-600 flex ml-auto w-full mt-4 lg:w-40 lg:mt-0 justify-center">Já Inscrito</a>
                     {% else %}
-                        <a href="#" class="button flex ml-auto w-full mt-4 lg:w-40 lg:mt-0 justify-center">Matricular-se</a>
+                        <a href="{% url 'watch_class' course_slug=course.slug class_slug=course.classes.first.slug %}" class="button flex ml-auto w-full mt-4 lg:w-40 lg:mt-0 justify-center">Matricular-se</a>
                     {% endif %}
 
                 {% endwith %}

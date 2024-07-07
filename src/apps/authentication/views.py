@@ -15,6 +15,11 @@ def signin(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+
+            next = request.GET.get('next')
+            if next:
+                return redirect(next)
+
             return redirect('/home')
 
     else:
@@ -85,7 +90,7 @@ def confirm_email(request, token):
     utils.get_github_data(token)
     utils.delete_token(token)
 
-    login(request, student.user)
+    login(request, student.user, backend='django.contrib.auth.backends.ModelBackend')
 
     return redirect('/home')
 

@@ -1,0 +1,136 @@
+{% load static %}
+{% load class %}
+
+<style>
+    @media (min-width: 1024px) {
+        main {
+            margin-left: 20%;
+            padding-left: 2.5%;
+        }
+    }
+</style>
+
+<aside class="hidden lg:flex bg-[#09335D] fixed left-0 top-0 w-[20%] max-w-[400px] h-screen text-white flex-col justify-between">
+    <div class="flex-1 flex flex-col">
+        <div class="p-4 mb-2">
+            <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                {{ class.title }}
+            </h5>
+        </div>
+        <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700 flex-1 justify-center">
+            <ol>
+                {% for class in course.classes.all %}
+                    <li>
+                        {% with user.student.id|class_status:class.id as status %}
+                            <a class="flex items-center w-full p-3 leading-tight transition-all rounded-md outline-none text-start active:bg-opacity-80
+                                {% if status == 'watched' %}
+                                    opacity-50 text-green-500 hover:bg-green-400 hover:bg-opacity-80 focus:bg-green-50 focus:bg-opacity-80 hover:text-white hover:opacity-100 focus:text-green-900 active:text-green-900 active:bg-green-50
+                                {% elif status == 'watching' %}
+                                    hover:bg-blue-400 font-bold hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 hover:text-blue-gray-900 focus:text-blue-gray-900 active:text-blue-gray-900 active:bg-blue-gray-50
+                                {% elif status == 'next' %}
+                                    hover:bg-blue-400 hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 hover:text-blue-gray-900 focus:text-blue-gray-900 active:text-blue-gray-900 active:bg-blue-gray-50
+                                {% elif status == 'not-watched' %}
+                                    opacity-50 hover:bg-blue-400 hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 hover:text-blue-gray-900 focus:text-blue-gray-900 active:text-blue-gray-900 active:bg-blue-gray-50
+                                {% endif %}
+                            "
+                                {% if not status == 'not-watched' %}
+                                    href="{% url 'watch_class' course_slug=course.slug class_slug=class.slug %}"
+                                {% endif %}
+                            >
+                                <div class="grid mr-4 place-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="w-5 h-5">
+                                        <path fill-rule="evenodd" d="M2.25 2.25a.75.75 0 000 1.5H3v10.5a3 3 0 003 3h1.21l-1.172 3.513a.75.75 0 001.424.474l.329-.987h8.418l.33.987a.75.75 0 001.422-.474l-1.17-3.513H18a3 3 0 003-3V3.75h.75a.75.75 0 000-1.5H2.25zm6.04 16.5l.5-1.5h6.42l.5 1.5H8.29zm7.46-12a.75.75 0 00-1.5 0v6a.75.75 0 001.5 0v-6zm-3 2.25a.75.75 0 00-1.5 0v3.75a.75.75 0 001.5 0V9zm-3 2.25a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                {{ class.title }}
+                            </a>
+                        {% endwith %}
+                    </li>
+                {% endfor %}
+                {% if course.exam %}
+                    <li>
+                        {% with user.student|is_test_available:course as is_allowed_to_test %}
+                            <a class="flex items center w-full p-3 leading-tight transition-all rounded-md outline-none text-start active:bg-opacity-80
+                                {% if is_allowed_to_test %}
+                                    hover:bg-blue-400 font-bold hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 hover:text-blue-gray-900 focus:text-blue-gray-900 active:text-blue-gray-900 active:bg-blue-gray-50
+                                {% else %}
+                                    opacity-50 hover:bg-blue-400 hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 hover:text-blue-gray-900 focus:text-blue-gray-900 active:text-blue-gray-900 active:bg-blue-gray-50
+                                {% endif %}
+                            "
+                                {% if is_allowed_to_test %}
+                                    href="{% url 'take_exam' course_slug=course.slug %}"
+                                {% endif %}
+                            >
+                                <div class="grid mr-4 place-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="w-5 h-5">
+                                        <path fill-rule="evenodd" d="M2.25 2.25a.75.75 0 000 1.5H3v10.5a3 3 0 003 3h1.21l-1.172 3.513a.75.75 0 001.424.474l.329-.987h8.418l.33.987a.75.75 0 001.422-.474l-1.17-3.513H18a3 3 0 003-3V3.75h.75a.75.75 0 000-1.5H2.25zm6.04 16.5l.5-1.5h6.42l.5 1.5H8.29zm7.46-12a.75.75 0 00-1.5 0v6a.75.75 0 001.5 0v-6zm-3 2.25a.75.75 0 00-1.5 0v3.75a.75.75 0 001.5 0V9zm-3 2.25a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                Prova
+                            </a>
+                        {% endwith %}
+                    </li>
+                {% endif %}
+            </ol>
+        </nav>
+    </div>
+    <div class="max-w-[400px] flex flex-col mx-auto mb-4 items-center">
+        <img class="w-[60%]" src="{% static 'logos/grupo-tiradentes.png' %}" alt="Logo">
+        <small class="mt-2 text-center italic">Universidade Tiradentes 2024</small>
+    </div>
+</aside>
+
+<div class="block lg:hidden fixed right-[10px] top-[28px] z-20 w-[95%] z-70">
+    <nav class="flex flex-wrap items-center justify-between p-3">
+        <div class="flex ml-auto">
+            <button id="hamburger">
+                <img style="filter: invert(1)" class="toggle block" src="https://img.icons8.com/fluent-systems-regular/2x/menu-squared-2.png" width="40" height="40" />
+                <img class="toggle hidden" src="https://img.icons8.com/fluent-systems-regular/2x/close-window.png" width="40" height="40" />
+            </button>
+        </div>
+        <div
+            class="toggle hidden w-full text-right text-bold mt-5 md:mt-0 border-t-2 border-blue-900">
+            <a href="{% url 'home'%}"
+                class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Início
+            </a>
+            <a href="{% url 'explore_courses' %}"
+                class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Cursos
+            </a>
+            <a href="#"
+                class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Perfil
+            </a>
+            <a href="#"
+                class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Meus Cursos
+            </a>
+            <a href="#"
+                class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Meus Certificados
+            </a>
+            <a href="#"
+                class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Notificações
+            </a>
+            <a href="#"
+                class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Suporte
+            </a>
+            <a href="{% url 'logout' %}"
+                class="block text-red-900 hover:text-red-500 px-3 py-4 border-b-2 border-red-900">Sair
+            </a>
+        </div>
+    </nav>
+    <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
+    <script>
+        let isOpen = false;
+        document.querySelector("#hamburger").onclick = () => {
+            const mainContent = document.querySelector("video") ?? document.querySelector("main");
+
+            isOpen = !isOpen;
+            isOpen
+                ? mainContent.classList.add("hidden")
+                : mainContent.classList.remove("hidden")
+
+            const navToggle = document.getElementsByClassName("toggle");
+            for (let i = 0; i < navToggle.length; i++) {
+                navToggle.item(i).classList.toggle("hidden");
+            }
+        };
+    </script>
+</div>

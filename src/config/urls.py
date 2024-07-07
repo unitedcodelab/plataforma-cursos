@@ -5,8 +5,8 @@ from .settings import DEBUG, PRODUCTION
 urlpatterns = [
     path('admin', admin.site.urls),
     path('', include('apps.core.urls')),
-    path('cursos/', include('apps.courses.urls')),
     path('autenticacao/', include('apps.authentication.urls')),
+    path('cursos/', include('apps.courses.urls')),
 ]
 
 if DEBUG:
@@ -15,7 +15,7 @@ if DEBUG:
         path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
 
-if not PRODUCTION:
+if True:
     from django.conf import settings
     from django.conf.urls.static import static
 
