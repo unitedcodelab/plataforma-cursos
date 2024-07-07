@@ -43,7 +43,7 @@ class ExamQuestionForm(forms.Form):
         exam = Exam.objects.get(course__slug=self.course_slug)
         tries = []
 
-        try_exam = ExamViewer.objects.get_or_create(
+        try_exam = ExamViewer.objects.create(
             exam=exam,
             viewer_object_id=student.id,
             viewer_content_type=student.get_content_type()
