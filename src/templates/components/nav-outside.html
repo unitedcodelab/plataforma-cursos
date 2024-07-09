@@ -1,4 +1,4 @@
-<section class="mx-12 pt-12 md:mx-24 md:pt-24 ">
+<section class="mx-12 pt-12 md:mx-24 md:pt-24 " style="padding: 0;">
     <nav class="flex justify-between items-center py-4">
         <div class="flex items-center justify-between w-full">
             <h1 class="font-bold font-bold text-2xl">United Code Lab</h1>
@@ -10,10 +10,10 @@
                     <a href="{% url 'explore_courses' %}" class="text-xl hover:underline ">Cursos</a>
                 </li>
                 <li class="flex items-center">
-                    <a href="{% url 'home' %}" class="text-xl hover:underline">Entrar</a>
+                    <a href="{% url 'signin' %}" class="text-xl hover:underline">Entrar</a>
                 </li>
                 <li>
-                    <a href="#" class="text-xl border-2 border-gray-200 px-4 py-2 rounded-md hover:border-gray-400 hover:pointer">
+                    <a href="{% url 'signup' %}" class="text-xl border-2 border-gray-200 px-4 py-2 rounded-md hover:border-gray-400 hover:pointer">
                         Cadastrar
                     </a>
                 </li>

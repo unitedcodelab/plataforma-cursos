@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="{% static 'css/auth/signin.css' %}" />
 {% endblock %} 
 
-{% block 'title' %}Cadastro{% endblock %} 
+{% block 'title' %}Login{% endblock %} 
 
 {% block 'body' %}
   <div class="container_signin">
@@ -20,7 +20,7 @@
     </div>
     <button type="submit">Entrar</button>
     <div class="cadastro_signin">
-      <a href="#">Ainda não tem cadastro?</a>
+      <a href="{% url 'signup' %}">Ainda não tem cadastro?</a>
     </div>
   </div>
 {% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block head %}
+  <link
+    rel="stylesheet"
+    href="{% static 'css/user_profile/user_profile.css' %}"
+  />
+  <title>Perfil</title>
+{% endblock %} 
+
+{% block main %}
+  <section class="profile">
+    <div class="profile-info">
+      <div class="profile-info-box">
+        <div class="profile-info-image">
+          <img
+            src="{% static 'css/user_profile/img/img-diego.jpg' %}"
+            alt="image_perfil"
+            class="profile-pic" />
+        </div>
+        <div class="profile-details">
+          <div class="profile-details-personal">
+            <h2 class="profile-details-personal-name">Diego Silva Passos</h2>
+            <div class = "profile-details-personal-course">
+              <p>Sistemas de Informação</p>
+              <p>7º Período</p>
+            </div>
+          </div>
+          <div class="profile-details-description">
+            <p>
+              Bla bla bla bla bla bla bla bla bla Bla bla bla bla bla bla Bla bla bla Bla bla bla bla bla bla bla bla bla
+            </p>
+          </div>
+          <div class="social-icons">
+            <a href="#" class="linkedin-icon">
+              <img src="{% static 'css/user_profile/img/linkedin.svg' %}" alt="linkedin-icon">
+            </a>
+            <a href="#" class="github-icon">
+              <img src="{% static 'css/user_profile/img/github.svg' %}" alt="github-icon">
+            </a>
+          </div>
+      </div>
+      </div>
+    </div>
+    {% comment %}
+    <div class="profile-projects">
+      <h3>Projetos</h3>
+      <div class="project">
+        <div class="project-icon">
+          <img src="{% static 'css/user_profile/img/portifolio.png' %}" alt="projeto-image" />
+        </div>
+        <div class="project-description">
+          <p>Portifólio profissional</p>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project-icon">
+          <img src="{% static 'css/user_profile/img/e-commerce.png' %}" alt="projeto-image" />
+        </div>
+        <div class="project-description">
+          <p>E-commerce de canecas</p>
+        </div>
+      </div>
+      <button class="button-profile">Ver mais</button>
+    </div>
+    {% endcomment %}
+    <div class="profile-certificates">
+      <h3>Certificados</h3>
+      <div class="certificate">
+        <div class="certificate-icon">
+          <img src="{% static 'css/user_profile/img/python-icon.png' %}" alt="Certificado" />
+        </div>
+        <div class="certificate-description">
+          <p>Curso Python para Iniciantes</p>
+        </div>
+      </div>
+      <div class="certificate">
+        <div class="certificate-icon">
+          <img src="{% static 'css/user_profile/img/c-sharp-logo.png' %}" alt="Certificado" />
+        </div>
+        <div class="certificate-description">
+          <p>Curso C# para Iniciantes</p>
+        </div>
+      </div>
+      <button class="button-profile">Ver mais</button>
+    </div>
+  </section>
+{% endblock %}

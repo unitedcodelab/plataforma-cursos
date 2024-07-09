@@ -1,0 +1,20 @@
+{% extends 'base_auth.html' %} 
+{% load static %} 
+
+{% block 'head' %}
+  <link rel="stylesheet" href="{% static 'css/auth/signup.css' %}" />
+{% endblock %} 
+
+{% block 'title' %}Cadastro{% endblock %} 
+
+{% block 'body' %}
+  <div class="container_signup">
+    <div class="title_signup">
+      <h2>Faça agora o seu Cadastro!</h2>
+    </div>
+    <div class="forms_signup">
+      <p>{{form}}</p>
+    </div>
+    <button type="submit">Continuar</button>
+  </div>
+{% endblock %}

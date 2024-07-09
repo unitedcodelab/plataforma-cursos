@@ -25,3 +25,10 @@ class SignInForm(forms.Form):
       raise forms.ValidationError('Usuário ou senha inválidos.')
     
     return credentials
+  
+class SignUpForm(forms.Form):
+  registration = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Matrícula'}))
+
+
+  def save(self):
+    pass
