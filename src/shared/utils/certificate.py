@@ -4,6 +4,7 @@ from datetime import datetime
 
 from django.core.files import File
 
+from apps.entities.models import Student
 from apps.courses.models import Certificate
 
 
@@ -57,7 +58,8 @@ def create_html(certificate):
         </style>
     """
 
-    intro_text = f"Certificamos que o aluno {certificate.student.name} em { datetime.now().strftime('%d/%m/%Y') } concluiu com sucesso o curso de {certificate.course.title}, ministrado por {certificate.instructor.author.name}, totalizando {certificate.hours} horas de estudo."
+    student = Student.objects.get(id=certificate.student_object_id)
+    intro_text = f"Certificamos que o aluno {student.name} em { datetime.now().strftime('%d/%m/%Y') } concluiu com sucesso o curso de {certificate.course.title}, ministrado por {certificate.instructor.author.name}, totalizando {certificate.hours} horas de estudo."
 
     html_content = f"""
         <html>
@@ -70,13 +72,13 @@ def create_html(certificate):
                     <div class="certificate-title">Certificado de Conclusão</div>
                     <div class="intro-text">{intro_text}</div>
                     <div class="certificate-info">
-                        <div><span class="info-label">Nome do Aluno:</span> { certificate.student.name }</div>
+                        <div><span class="info-label">Nome do Aluno:</span> { student.name }</div>
                         <div><span class="info-label">Curso:</span> { certificate.course.title }</div>
                         <div><span class="info-label">Horas Totais:</span> { certificate.hours }</div>
                     </div>
                     <div class="footer">
                         Este certificado é uma distinção concedida em reconhecimento ao esforço e realização acadêmica.
-                        <br>Código de Verificação: { certificate.student.name.split(' ')[0] }-{ certificate.id }
+                        <br>Código de Verificação: { student.name.split(' ')[0] }-{ certificate.id }
                     </div>
                 </div>
             </div>
