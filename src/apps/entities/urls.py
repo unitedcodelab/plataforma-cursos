@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import user_profile
+
+import apps.entities.views as views
 
 urlpatterns = [
-  path('', user_profile, name='user_profile'),
+  path('', views.user_profile, name='user_profile'),
+  path('certificados/', views.user_certificates, name='user_certificates')
 ]

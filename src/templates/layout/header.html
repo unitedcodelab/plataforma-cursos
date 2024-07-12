@@ -75,7 +75,7 @@
                         <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Meus Cursos</a>
                     </li>
                     <li>
-                        <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Meus certificados</a>
+                        <a href="{% url 'user_certificates' %}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Meus Certificados</a>
                     </li>
                     <li>
                         <a href="{% url 'logout' %}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sair</a>
@@ -106,7 +106,7 @@
                 <a href="#"
                     class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Meus Cursos
                 </a>
-                <a href="#"
+                <a href="{% url 'user_certificates' %}"
                     class="block text-blue-900 hover:text-blue-500 px-3 py-4 border-b-2 border-blue-900">Meus Certificados
                 </a>
                 <a href="#"
