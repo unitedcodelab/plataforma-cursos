@@ -110,8 +110,6 @@ def take_exam(request, course_slug):
         if form.is_valid():
             percentage = form.save()
 
-            print(percentage)
-
             if percentage >= 80:
                 generate_certificate(
                     student=request.user.student,
@@ -119,7 +117,8 @@ def take_exam(request, course_slug):
                     course=course,
                     hours=course.get_hours()
                 )
-                # return meus_certificados.
+
+                return redirect('/perfil/certificados/')
 
             else:
                 form.add_error(None, f'Vamos lá, você consegue! Você acertou {percentage}% das questões, precisa acertar no mínimo 80%.')

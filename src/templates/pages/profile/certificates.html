@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div class="w-[71%] my-16 lg:mt-8 bg-white">
+        <div>
+            {% for certificate in certificates %}
+                <a href="{{ certificate.file.url }}" target="_blank" class="block bg-gray-100 p-4 rounded-md w-full mb-8">
+                    <h3 class="text-xl font-bold">{{ certificate.course.title }}</h3>
+                    <p class="text-gray-600">{{ certificate.created_at|date:"d/m/Y" }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
