@@ -58,6 +58,10 @@ def signup(request):
 
                 threads.SendEmailThread(token).start()
 
+                print(form.cleaned_data.get('github'))
+                if form.cleaned_data.get('github'):
+                    utils.get_github_data(token)
+
                 return render(request, "pages/auth/email-sent.html")
 
     else:
@@ -87,7 +91,6 @@ def confirm_email(request, token):
     student.verified = True
     student.save()
 
-    utils.get_github_data(token)
     utils.delete_token(token)
 
     login(request, student.user, backend='django.contrib.auth.backends.ModelBackend')
