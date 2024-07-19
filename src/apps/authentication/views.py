@@ -58,7 +58,6 @@ def signup(request):
 
                 threads.SendEmailThread(token).start()
 
-                print(form.cleaned_data.get('github'))
                 if form.cleaned_data.get('github'):
                     utils.get_github_data(token)
 
