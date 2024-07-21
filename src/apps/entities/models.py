@@ -23,7 +23,7 @@ class Student(PersonMixin, DefaultMixin):
     photo = models.ImageField(upload_to=upload_to, null=True)
     slug = models.SlugField(null=True)
     github = models.CharField(max_length=255, null=True, blank=True)
-    biograph = models.TextField()
+    biograph = models.TextField(null=True, blank=True)
     unit = models.OneToOneField(UnitStudent, on_delete=models.CASCADE)
     verified = models.BooleanField(default=False)
 

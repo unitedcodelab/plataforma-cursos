@@ -25,10 +25,10 @@ def generate_token(student_enroll_number: str):
 
 
 def update_token(token: str):
-    tokenModel = SignUpToken.objects.get(token=token)
-    tokenModel.token = random_string(64)
-    tokenModel.save()
-    return tokenModel.token
+    token_model = SignUpToken.objects.get(token=token)
+    token_model.token = random_string(64)
+    token_model.save()
+    return token_model.token
 
 
 def delete_token(token: str):
@@ -60,8 +60,15 @@ def get_github_data(token):
     response = requests.get(f"https://api.github.com/users/{student.github}")
     data = response.json()
 
-    student.slug = data['login']
-    student.photo = data['avatar_url']
-    student.biograph = data['bio']
+    student.slug = data.get('login')
+    student.photo = data.get('avatar_url')
+    student.biograph = data.get('bio')
 
+    student.save()
+
+
+def generate_student_slug(student):
+    slug = student.email.split('@')[0]
+    slug = slug.replace('.', '-')
+    student.slug = slug
     student.save()
