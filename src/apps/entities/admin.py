@@ -13,6 +13,9 @@ class StudentAdmin(admin.ModelAdmin):
     search_fields = ('name', )
     list_display = ('name', 'enroll_number', 'verified')
 
+    def get_queryset(self, request):
+        return self.model.even_not_verified.get_queryset()
+
 
 admin.site.register(UnitStudent, UnitStudentAdmin)
 admin.site.register(Student, StudentAdmin)

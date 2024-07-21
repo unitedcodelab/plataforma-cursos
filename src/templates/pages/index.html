@@ -14,7 +14,7 @@
         <div class="absolute w-[400px] h-[400px] rounded-full bg-blue-500 top-[100px] left-[-200px] hidden md:block"></div>
         <div class="absolute w-[400px] h-[400px] rounded-full bg-blue-500 top-[-200px] right-[300px] hidden md:block"></div>
     </span>
-    <section class="flex gap-8 lg:justify-between m-12 md:mx-24 md:my-12 items-center">
+    <section class="h-[80vh] flex gap-8 lg:justify-between m-12 md:my-0 md:mx-24 items-center">
         <div class="flex flex-col gap-8">
             <div class="sm:hidden h-[100px] overflow-hidden rounded-md">
                 <img class="relative bottom-[150px]" src="{% static 'illustrations/men-with-computer.jpg'%}" alt="Homem Usando Computador">
@@ -29,9 +29,9 @@
             <p class="font-semibold 2xl:text-xl">
                 Aprenda com quem aprende: cursos feitos por alunos, para alunos!
             </p>
-            <button class="flex items-center bg-blue-500 rounded-md text-xl text-white font-black px-4 py-2 uppercase custom-gradient-bg">
+            <a href="{% url 'signup' %}" class="flex items-center bg-blue-500 rounded-md text-xl text-white font-black px-4 py-2 uppercase custom-gradient-bg">
                 Aprender agora
-            </button>
+            </a>
         </div>
 
         <div class="hidden sm:block w-[200px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] xl:w-[500px] xl:h-[500px] rounded-full overflow-hidden">

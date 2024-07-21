@@ -61,6 +61,10 @@ def signup(request):
                 if form.cleaned_data.get('github'):
                     utils.get_github_data(token)
 
+                else:
+                    student = utils.get_student_by_token(token)
+                    utils.generate_student_slug(student)
+
                 return render(request, "pages/auth/email-sent.html")
 
     else:
