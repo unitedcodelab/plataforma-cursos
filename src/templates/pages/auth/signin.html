@@ -11,9 +11,11 @@
                     {{ field.label_tag }}
                     {{ field }}
 
-                    {% if forloop.last %}
-                        <a href="#" class="text-gray-400 flex justify-end hover:underline">Esqueceu a senha?</a>
-                    {% endif %}
+                    {% comment %}
+                        {% if forloop.last %}
+                            <a href="#" class="text-gray-400 flex justify-end hover:underline">Esqueceu a senha?</a>
+                        {% endif %}
+                    {% endcomment %}
                 </div>
             {% endfor %}
 
