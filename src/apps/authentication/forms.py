@@ -31,7 +31,7 @@ class SignInForm(forms.Form):
             raise ValidationError('Por favor, preencha todos os campos.')
 
         if not authenticate(username=login, password=password):
-            raise ValidationError('Usuário ou senha inválidos.')
+            raise ValidationError(['Usuário ou senha inválidos.', 'Lembre-se que nossa senha é um pouco mais chatinha ;)'])
 
         return cleaned_data
 
