@@ -48,6 +48,11 @@
             {% endif %}
         </div>
 
-        <button class="button w-full" type="submit">Proximo</button>
+        <button class="button w-full mb-4" type="submit">Proximo</button>
+        {% if step == 1 %}
+            <a href="{% url 'signin' %}" class="flex justify-center text-gray-400 hover:underline text-center">
+                Já tem uma conta? Faça login
+            </a>
+        {% endif %}
     </form>
 {% endblock %}
