@@ -17,8 +17,8 @@
         <i class="fas fa-home text-3xl"></i>
         <span class="ml-2 text-xl">Home</span>
     </a>
-    <img class="w-screen absolute lg:relative lg:w-[50%] h-full" src="{% static 'illustrations/auth/image_left.png' %}" alt="Ilustração">
-    <main class="bg-white w-[90%] lg:w-[50%] h-[80vh] lg:h-screen flex justify-center items-center rounded-md lg:rounded-none z-50">
+    <img class="w-screen absolute lg:relative lg:w-[50%] h-screen" src="{% static 'illustrations/auth/image_left.png' %}" alt="Ilustração">
+    <main class="bg-white w-[90%] lg:w-[50%] h-[80vh] fixed lg:relative lg:h-screen flex justify-center items-center rounded-md lg:rounded-none z-50">
         {% block main %}
         {% endblock %}
     </main>
